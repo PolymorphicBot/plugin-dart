@@ -1,0 +1,7 @@
+name: dart
+version: 1.0.0
+description: Dart Plugin for PolymorphicBot
+dependencies:
+  polymorphic_bot:
+    git: git://github.com/PolymorphicBot/PolymorphicBot.git
+  http: '>=0.11.0'
