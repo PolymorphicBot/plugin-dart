@@ -4,19 +4,17 @@ import "dart:async";
 import "dart:convert";
 
 BotConnector bot;
-EventManager eventManager;
 const String BASE_DARTDOC = "http://www.dartdocs.org/documentation/";
 http.Client httpClient = new http.Client();
 
-void main(_, port) {
-  bot = new BotConnector(port);
-  eventManager = bot.createEventManager();
+void main(_, Plugin plugin) {
+  bot = plugin.getBot();
 
-  eventManager.command("whatis", (event) {
+  bot.command("whatis", (event) {
     APIDocs.handleWhatIsCmd(event);
   });
 
-  eventManager.command("dartdoc", (event) {
+  bot.command("dartdoc", (event) {
     if (event.args.length > 2 || event.args.length < 1) {
       event.reply("> Usage: dartdoc <package> [version]");
     } else {
@@ -32,7 +30,7 @@ void main(_, port) {
     }
   });
   
-  eventManager.command("pub-latest", (event) {
+  bot.command("pub-latest", (event) {
     if (event.args.length == 0) {
       event.reply("> Usage: pub-latest <package>");
     } else {
@@ -46,7 +44,7 @@ void main(_, port) {
     }
   });
   
-  eventManager.command("pub-description", (event) {
+  bot.command("pub-description", (event) {
     if (event.args.length == 0) {
       event.reply("> Usage: pub-description <package>");
     } else {
@@ -60,7 +58,7 @@ void main(_, port) {
     }
   });
   
-  eventManager.command("pub-downloads", (event) {
+  bot.command("pub-downloads", (event) {
     if (event.args.length == 0) {
       event.reply("> Usage: pub-downloads <package>");
     } else {
@@ -75,7 +73,7 @@ void main(_, port) {
     }
   });
   
-  eventManager.command("pub-uploaders", (event) {
+  bot.command("pub-uploaders", (event) {
     if (event.args.length == 0) {
       event.reply("> Usage: pub-uploaders <package>");
     } else {
