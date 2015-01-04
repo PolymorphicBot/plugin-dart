@@ -32,9 +32,9 @@ void main(_, Plugin plugin) {
           event.reply("> package not found '${package}@${version}'");
         } else {
           event.reply("> Documentation: ${url}");
+          achievements.give(event.network, event.user, achievement.id);
         }
       });
-      achievements.give(event.network, event.user, achievement.id);
     }
   });
   
