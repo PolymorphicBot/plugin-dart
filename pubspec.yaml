@@ -5,3 +5,5 @@ dependencies:
   polymorphic_bot:
     git: git://github.com/PolymorphicBot/PolymorphicBot.git
   http: '>=0.11.0'
+  achievements:
+    git: https://github.com/PolymorphicBot/plugin-achievements.git

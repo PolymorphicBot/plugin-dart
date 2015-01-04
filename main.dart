@@ -1,15 +1,22 @@
 import "package:polymorphic_bot/api.dart";
 import "package:http/http.dart" as http;
 import "dart:async";
+import "package:achievements/api.dart";
 import "dart:convert";
 
 BotConnector bot;
 const String BASE_DARTDOC = "http://www.dartdocs.org/documentation/";
 http.Client httpClient = new http.Client();
+var achievement = new Achievement("Dart is Epic", "dart.is.epic", "Given to someone who uses a Dart-related command");
+Achievements achievements;
 
 void main(_, Plugin plugin) {
   bot = plugin.getBot();
 
+  achievements = new Achievements(bot);
+  
+  achievements.register(achievement);
+  
   bot.command("whatis", (event) {
     APIDocs.handleWhatIsCmd(event);
   });
@@ -27,6 +34,7 @@ void main(_, Plugin plugin) {
           event.reply("> Documentation: ${url}");
         }
       });
+      achievements.give(event.network, event.user, achievement.id);
     }
   });
   
@@ -39,6 +47,7 @@ void main(_, Plugin plugin) {
           event.reply("> No Such Package: ${event.args[0]}");
         } else {
           event.reply("> Latest Version: ${version}");
+          achievements.give(event.network, event.user, achievement.id);
         }
       });
     }
@@ -53,6 +62,7 @@ void main(_, Plugin plugin) {
           event.reply("> No Such Package: ${event.args[0]}");
         } else {
           event.reply("> Description: ${desc}");
+          achievements.give(event.network, event.user, achievement.id);
         }
       });
     }
@@ -68,6 +78,7 @@ void main(_, Plugin plugin) {
           event.reply("> No Such Package: ${event.args[0]}");
         } else {
           event.reply("> Download Count: ${info["downloads"]}");
+          achievements.give(event.network, event.user, achievement.id);
         }
       });
     }
@@ -83,6 +94,7 @@ void main(_, Plugin plugin) {
           event.reply("> No Such Package: ${event.args[0]}");
         } else {
           event.reply("> Uploaders: ${authors.join(", ")}");
+          achievements.give(event.network, event.user, achievement.id);
         }
       });
     }
@@ -182,5 +194,7 @@ class APIDocs {
     } else {
       event.reply("> ID not found.");
     }
+    
+    achievements.give(event.network, event.user, achievement.id);
   }
 }
