@@ -10,7 +10,9 @@ http.Client httpClient = new http.Client();
 var achievement = new Achievement("Dart is Epic", "dart.is.epic", "Given to someone who uses a Dart-related command");
 Achievements achievements;
 
-void main(_, Plugin plugin) {
+void main(args, port) {
+  var plugin = polymorphic(args, port);
+  
   bot = plugin.getBot();
 
   achievements = new Achievements(bot);
